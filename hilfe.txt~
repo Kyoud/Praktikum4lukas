@@ -1,0 +1,17 @@
+//Compile Thrift
+thrift -gen cpp fileserver.thrift
+//Compile Server
+g++ fileserver_constants.cpp fileserver_types.cpp fileservice.cpp fileservice_server.skeleton.cpp -o file.server -lthrift
+
+//Compile Client
+g++ fileserver_constants.cpp fileserver_types.cpp fileservice.cpp ../fileclient.cpp -o file.client -lthrift -std=c++11
+
+//Start Server
+./file.server
+
+// Start Client
+./file.client
+
+// 100 MB Datei erstellen
+dd if=/dev/zero of=file.txt count=10000 bs=10000
+
